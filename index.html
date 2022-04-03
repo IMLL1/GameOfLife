@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="utf-8">
+		<title>Game Of Life</title>
+		<link rel="stylesheet" href="styles.css">
+		<script src="processing.js"></script>
+		<script src="Guido.js" type="text/javascript"></script>
+	</head>
+	<body style="text-align:center;">
+		<header>
+			<h1>John Conway's Game of Life</h1>
+		</header>
+			<section id="content">
+				<canvas id="GameOfLife" data-processing-sources="GameOfLife.pde">
+				</canvas>
+			</section>
+		<ul style="text-align:left;">
+		    <li>Game Information:
+				<ul>
+				<li>The Game of Life is a simulation invented by mathematician John Conway, known as a cellular automaton, with rather simple rules for each cell</li>
+				<li>Any living cell with exactly two living neighbors lives on to the next generation</li>
+				<li>Any cell (living or nonliving) with exactly three neighbors will be alive the next generation</li>
+				<li>All other cells die or remain dead</li>
+				</ul>
+			</li>
+			<li>General controls:
+				<ul>
+				<li>When paused, you can toggle cells on and off by clicking them.</li>
+				<li>Spacebar: pause/unpase</li>
+				<li>Up and down arrows: Change grid size (up=increase size, down=decrease). Only works when paused.</li>
+				<li>Left and right arrows: Change framerate (right=higher, left=lower).</li>
+				<li>Backslash [\]: Clear the grid. Only works when paused.</li>
+				<li>Tilde [~] (but without the shift, so actually a backquote `): Randomize the state of the grid. Only works when paused.</li>
+				<li>Enter: Move forward one generation (one frame). Only works when paused.</li>
+				<li>Press [r] to revert to generation 0. Only works when paused.</li>
+				<li>Performance debug: press [d] to toggle debug mode, in which you can also see the actual framerate, in addition to the already-displayed target framerate.</li>
+				<li>If you make a shape you want to play around with, you can save it and load it in whenever you'd like! Hover your mouse over any cell, and press [c] (copy) to copy all active cells. Hitting [p] (paste) will paste the shape, preserving the relative position to the mouse. Only works when paused.</li>
+				</ul>
+			</li>
+			<li>1-9 and 0 keys (keyboard, not numpad) import different patterns to wherever the mouse is positioned. If the object doesn't show up when you press the key, it means you need to increase the size of the grid, or move the mouse. Only works when paused.
+				<ul>
+				<li>[1] creates an 'oscillator' (shape that cycles between multiple states called a blinker. It is important with its center at the mouse position, and takes up a 3x3 space.</li>
+				<li>[2] creates another oscillator called toad, centered at the mouse's position. The toad takes up a 4x4 area.</li>
+				<li>[3] creates a beacon oscillator centered on the mouse, which also takes up a 4x4 space.</li>
+				<li>[4] creates a pulsar oscillator, which at its largest takes up a 13x13 area.</li>
+				<li>[5] creates a Pentadecathlon, which takes up a 16x9 area.</li>
+				<li>[6] creates a P16 shape, which is the final oscillator, and takes up a 15x15 bounding box.</li>
+				<li>[7] creates a type of 'spaceship' (an object that moves accross the grid) called a glider, which moves southeast. It takes up a 3x3 area. It is imported with its top left cell at the mouse's position.</li>
+				<li>[8] creates another spaceship known as a lightweight spaceship, which moves horizontally accross the screen to the right. It is imported with the center left pixel at the mouse's position, and takes up a 7x5 area in order to move itself forward.</li>
+				<li>[9] creates two gliders in a specific place. What's special about this is that after colliding, the gliders expand for a large number of generations before finally settling on a shape. It is imported with its center over the mouse. Initially taking up a 12x6 area, it expands well beyond those bounds.</li>
+				<li>[0] creates something known as a 'gun', which shoots out other shapes. This gun is called a Gosper gun (named for the discoverer), and shoots gliders to the southeast. It takes up a large 36x9 space, but needs more space for the gliders to actually survive long enough to be recognizable as gliders.</li>	    
+				<li>Do you want to be able to import another shape? That's what the copy-paste function is for!</li>
+				</ul>
+			<li>There are many more interesting shapes listed on the <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns">wikipedia page</a> for the game of life, as well as on the online game of life's <a href="https://playgameoflife.com/lexicon">lexicon page</a>.</li>
+		</ul>
+	    <footer>
+	    </footer>
+	</body>
+</html>
+<!--
+v1.0: initial release
+v1.0.1: fixed a small HTML formatting error, added delete in addition to backspace as keys to clear board.
+v1.0.2 and 1.0.3: switched to 1000x1000, and then back to 800x800 when I realized 1000x1000 is too big.
+v1.1.0: added the ability to randomize the board.
+v1.1.1: clarified the instructions
+v1.2.0: allow scaling of window, among other things
+v1.3.0: revert to 1.1.1
+v1.4.0: decided that my reversion was a bad idea. Window can be scaled. Also changed the keybind on the delete function.
+v1.4.1: fixed minor bug, changed instructions
+v1.4.1, part II: 1.4.1, but for real this time. Forgot to actually copy-paste the code!
+v1.4.2: hopefully fixed a bug with integer division
+		Heck, I broke it
+v1.4.3: unbroke it??? maybe??? The size changer still isn't working, but at least the program will run?
+v1.5.0: fully fixed, controls work, added another creatable object.
+v1.6.0: game will autopause and tell you once stability or death is reached.
+v1.7.0: added support for loading and saving buffers.
+v1.8.0: objects added are added to where the mouse is.
+v1.8.1: fixed a bug with the save, added more documentation on importable objects.
+v1.8.2: fixed another bug with the saving, it should work now.
+v1.8.3: added a couple <br>s into the index.html. HTML isn't my thing okay? don't judge.
+v1.8.4: hopefullt fixed the ugly formatting on the website???
+v1.8.5: I'm going to keep trying until this doesn't hurt to look at
+v1.9.0: added copy-paste functionality for custom shapes!
+v1.9.1: the copypaste ability is super scuffed rn. I know it's broken. It works in processing, so idk what to say.
+v1.9.2: added a few print statements to try and debug
+v1.9.3: tracked the bug down to the paste code, changed print statements to target that section more heavily
+v1.9.4: removed a superfluous bracket that crashed the program
+v1.9.5: found the problem (processing wants an empty else statement for some reason), removed print statements. Seriously, why does it not work when it's just an if(condition), but it does work when there's an empty else statement?????
+v1.10.0: optimized the program, added hidden debug mode (which just shows the actual framerate instead of the target)
+v1.11.0: nope that broke it. nvm.
+v1.12.0: going back to 1.10, added some debugging tools to figure out what's up.
+v1.12.1: I think I tracked the issue to a syntax problem in the keypressed function. Testing fix.
+v1.12.2: Didn't work, testing another solution.
+v1.12.3: see: 1.12.2
+v1.12.4: tracked it down to isEnd() function. Hypothesis is that the issue is connected to my method of breaking out of a 2d array.
+v1.12.5: confirmed that the suspected problem is indeed the problem. Attempting repairs.
+v1.12.6: fixed the problem. I was attempting to use an optimized function that combines the stability-checking function with the dead-checking function. Realized that a) it's more trouble than it's worth and b) it doesn't actually have any benifit.
+v1.12.7: modified the death/stability screen to be more concise.
+v1.12.8: added debug to instructions, fixed inconsitency in punctuation
+v1.13.0: optimized more by removing the checkIfDead and checkIfSame functions, instead opting to put replacements within the update checker
+	heck, I broke it again. It doesn't show while running. I'll figure it out.
+v1.13.1: tracked down the problem to the stability check, trying again
+v1.13.2: github's version of processing.js didn't like the Boolean.compare() method, so I used something else.
+v1.13.3: optimized a tad bit more
+-->
